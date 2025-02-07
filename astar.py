@@ -174,12 +174,21 @@ class Graph:
         longitude.reverse()
         latitude.reverse()
 
-        with open("./result/optimal_path_carbon.csv", "w", newline='') as result:
+        if self.alpha == 1 and self.beta == 0 and self.gamma == 0:
+            path_type = "shortest"
+        elif self.alpha == 0 and self.beta == 1 and self.gamma == 0:
+            path_type = "fastest"
+        elif self.alpha == 0 and self.beta == 0 and self.gamma == 1:
+            path_type = "eco-friendly"
+        else:
+            path_type = "error"
+
+        with open("./result/optimal_" + path_type + "_path.csv", "w", newline='') as result:
             writer = csv.writer(result)
             writer.writerow(["longitude", "latitude"])
             for lon, lat in zip(longitude, latitude):
                 writer.writerow([lon, lat])
-
+                
     def get_optimal_path(self, start_node: int, end_node: int) -> List[Tuple[float, float]]:
         path = []
         current = self.graph[end_node]
