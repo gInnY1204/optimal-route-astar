@@ -6,8 +6,12 @@ if __name__ == "__main__":
     # central coordinate of New York City
     central_lat, central_lng = 40.78554, -73.95956
 
+    path_type = "shortest"
+    # path_type = "fastest"
+    # path_type = "eco-friendly"
+
     # get an optimal path
-    optimal_path = pd.read_csv("./result/optimal_path_carbon.csv")
+    optimal_path = pd.read_csv("./result/optimal_" + path_type + "_path.csv")
 
     # visualization
     m = folium.Map(location=(central_lat, central_lng), zoom_start=10)
