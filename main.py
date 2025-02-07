@@ -29,13 +29,23 @@ if __name__ == "__main__":
     to_lat, to_lng = args.to
     alpha, beta, gamma = args.weight
     alpha, beta, gamma = int(alpha), int(beta), int(gamma)
+
+    if alpha == 1 and beta == 0 and gamma == 0:
+        path_type = "shortest"
+    elif alpha == 0 and beta == 1 and gamma == 0:
+        path_type = "fastest"
+    elif alpha == 0 and beta == 0 and gamma == 1:
+        path_type = "eco-friendly"
+    else:
+        path_type = "error"
+        
     save = args.save
     save = int(save)
 
     planner = RoutingPlanner(alpha, beta, gamma)
     if save:
         planner.astar_path(nearest_node([(frm_lat, frm_lng)]), nearest_node([(to_lat, to_lng)]))
-        print("save in ./result/optimal_path_carbon.csv")
+        print("save in ./result/optimal_" + path_type + "_path.csv")
         print("save")
     else:
         print(planner.astar(nearest_node([(frm_lat, frm_lng)]), nearest_node([(to_lat, to_lng)])))
